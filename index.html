@@ -44,8 +44,15 @@
  clean.onerror=()=>{message.textContent='Could not load the original face image.';};
  damaged.onerror=()=>{message.textContent='Original face loaded; damage reference unavailable.';};
  clean.src='slap-face.png'; damaged.src='slap-damaged.png';
- function initClean(){if(!clean.complete||!clean.naturalWidth)return;ready=1;renderFace();}
- function initDamaged(){if(!damaged.complete||!damaged.naturalWidth)return;if(clean.complete&&clean.naturalWidth){ready=1;buildDamageLayers();renderFace();}}
+ let layersBuilt=false;
+ function ensureReady(){
+  if(!clean.complete||!clean.naturalWidth)return;
+  ready=1;
+  if(damaged.complete&&damaged.naturalWidth&&!layersBuilt){buildDamageLayers();layersBuilt=true;}
+  renderFace();
+ }
+ function initClean(){ensureReady();}
+ function initDamaged(){ensureReady();}
  const regions={
   foreheadLeft:[[50,77],[94,72],[121,94],[119,123],[98,140],[66,133],[52,112]],
   foreheadRight:[[145,70],[210,68],[229,101],[219,133],[190,145],[158,116]],
