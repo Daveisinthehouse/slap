@@ -41,8 +41,11 @@
  let slaps=0, ready=0, damageLayers=[];
  const clean=new Image(), damaged=new Image();
  clean.src='slap-face.png'; damaged.src='slap-damaged.png';
- clean.onload=init; damaged.onload=init;
- function init(){if(ready||!clean.complete||!damaged.complete||!clean.naturalWidth||!damaged.naturalWidth)return;ready=1;buildDamageLayers();renderFace();}
+ clean.onload=initClean; damaged.onload=initDamaged;
+ clean.onerror=()=>{message.textContent='Could not load the original face image.';};
+ damaged.onerror=()=>{message.textContent='Damage reference unavailable; loading original face.';};
+ function initClean(){if(!clean.complete||!clean.naturalWidth)return;ready=1;renderFace();}
+ function initDamaged(){if(!damaged.complete||!damaged.naturalWidth)return;if(clean.complete&&clean.naturalWidth){ready=1;buildDamageLayers();renderFace();}}
  const regions={
   foreheadLeft:[[50,77],[94,72],[121,94],[119,123],[98,140],[66,133],[52,112]],
   foreheadRight:[[145,70],[210,68],[229,101],[219,133],[190,145],[158,116]],
