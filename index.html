@@ -25,8 +25,13 @@
  <div class="hud"><div class="stat"><small>Slaps</small><strong id="score">0</strong></div><div class="stat"><small>Damage level</small><strong id="level">Fresh</strong></div></div>
  <div class="stage" id="stage">
   <div class="face-wrap" id="face" role="button" tabindex="0" aria-label="Slap the pixel face">
-   <img class="face-image" src="/slap/slap-face%20(1).png?v=17" alt="Clean 16-bit face" draggable="false">
-   <img class="damaged-image" id="damageImage" src="/slap/slap-damaged-matched.png?v=17" alt="" draggable="false">
+   <img class="face-image" src="/slap/slap-face%20(1).png?v=20" alt="Clean 16-bit face" draggable="false">
+   <svg class="damage-overlay" viewBox="0 0 260 320" preserveAspectRatio="none" aria-hidden="true">
+    <g id="bruiseOne" opacity="0"><ellipse cx="89" cy="151" rx="27" ry="13" fill="#42213f" opacity=".65"/><ellipse cx="89" cy="151" rx="19" ry="8" fill="#82466f" opacity=".42"/></g>
+    <g id="bruiseTwo" opacity="0"><ellipse cx="171" cy="151" rx="25" ry="12" fill="#49223d" opacity=".58"/><ellipse cx="130" cy="181" rx="17" ry="9" fill="#7b394d" opacity=".35"/></g>
+    <g id="cutsOne" opacity="0" stroke-linecap="round" stroke-linejoin="round"><path d="M70 177 L77 181 L74 188 M181 173 L188 178 L185 184" fill="none" stroke="#40131f" stroke-width="3.5"/><path d="M70 177 L77 181 L74 188 M181 173 L188 178 L185 184" fill="none" stroke="#b52c3d" stroke-width="1.6"/></g>
+    <g id="cutsTwo" opacity="0" stroke-linecap="round" stroke-linejoin="round"><path d="M126 125 L123 135 L128 141 M153 119 L159 124 L164 123" fill="none" stroke="#40131f" stroke-width="3"/><path d="M126 125 L123 135 L128 141 M153 119 L159 124 L164 123" fill="none" stroke="#c33343" stroke-width="1.3"/><circle cx="78" cy="192" r="1.5" fill="#9d172a"/><circle cx="185" cy="189" r="1.4" fill="#9d172a"/></g>
+   </svg>
   </div>
   <div class="slaphint">TAP THE FACE OR HIT THE SLAP BUTTON</div>
   <div class="meter"><span id="meterFill"></span></div>
@@ -36,69 +41,5 @@
  <div class="foot">Just cartoon slapstick — no real people were harmed in the making of this game.</div>
 </main>
 <script>
-(()=> {
- const face=document.getElementById('face');
- const scoreEl=document.getElementById('score');
- const levelEl=document.getElementById('level');
- const fill=document.getElementById('meterFill');
- const message=document.getElementById('message');
- const stage=document.getElementById('stage');
- let slaps=0;
- const levels=['Fresh','Rosy','Bruised','Battered','Rough','Legendary'];
- const lines=['Oof! That one stung.','That cheek is turning purple.','A little cut, a lot of regret.','Both sides are feeling it now.','He might need an ice pack.','Maximum cartoon damage!'];
- const damageGroups=[
-  document.getElementById('bruiseOne'),
-  document.getElementById('bruiseTwo'),
-  document.getElementById('cutsOne'),
-  document.getElementById('cutsTwo')
- ];
- function renderDamage(){
-   damageGroups.forEach((g,i)=>g.setAttribute('opacity',slaps>=i+1?'1':'0'));
- }
- function playImpact(){
-   try {
-     const AC=window.AudioContext||window.webkitAudioContext;
-     if(!AC)return;
-     const ac=new AC(), now=ac.currentTime;
-     const n=Math.floor(ac.sampleRate*.11), buf=ac.createBuffer(1,n,ac.sampleRate), data=buf.getChannelData(0);
-     for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*(1-i/n);
-     const src=ac.createBufferSource();src.buffer=buf;
-     const filter=ac.createBiquadFilter();filter.type='lowpass';filter.frequency.value=1350;
-     const gain=ac.createGain();gain.gain.setValueAtTime(.42,now);gain.gain.exponentialRampToValueAtTime(.001,now+.11);
-     src.connect(filter);filter.connect(gain);gain.connect(ac.destination);src.start();src.stop(now+.11);
-     setTimeout(()=>ac.close(),250);
-   }catch(e){}
- }
- function reactVoice(){
-   if(!('speechSynthesis' in window))return;
-   try{
-     window.speechSynthesis.cancel();
-     const utter=new SpeechSynthesisUtterance(slaps%2?'Ow!':'Off!');
-     utter.rate=1.1;utter.pitch=slaps%2?1.05:.85;utter.volume=.8;
-     window.speechSynthesis.speak(utter);
-   }catch(e){}
- }
- function slap(){
-   slaps++;
-   face.classList.remove('hit');void face.offsetWidth;face.classList.add('hit');
-   setTimeout(()=>face.classList.remove('hit'),240);
-   scoreEl.textContent=slaps;
-   levelEl.textContent=levels[Math.min(levels.length-1,Math.floor(slaps/2))];
-   fill.style.width=Math.min(100,slaps/8*100)+'%';
-   message.textContent=lines[Math.min(lines.length-1,slaps-1)];
-   renderDamage();playImpact();reactVoice();
-   const s=document.createElement('span');s.className='spark';s.textContent=['💥','✋','POW!','SMACK!'][Math.floor(Math.random()*4)];
-   s.style.left=(28+Math.random()*44)+'%';s.style.top=(20+Math.random()*35)+'%';s.style.setProperty('--dx',(Math.random()*100-50)+'px');stage.appendChild(s);setTimeout(()=>s.remove(),600);
- }
- function reset(){
-   slaps=0;scoreEl.textContent='0';levelEl.textContent='Fresh';fill.style.width='0%';message.textContent="He's feeling pretty confident...";
-   stage.querySelectorAll('.spark').forEach(x=>x.remove());renderDamage();
-   if('speechSynthesis' in window)window.speechSynthesis.cancel();
- }
- face.addEventListener('click',slap);
- face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slap();}});
- document.getElementById('slapBtn').addEventListener('click',slap);
- document.getElementById('resetBtn').addEventListener('click',reset);
- renderDamage();
-})();</script>
+(()=>{const face=document.getElementById('face'),scoreEl=document.getElementById('score'),levelEl=document.getElementById('level'),fill=document.getElementById('meterFill'),message=document.getElementById('message'),stage=document.getElementById('stage');let slaps=0;const levels=['Fresh','Rosy','Bruised','Battered','Rough','Legendary'],lines=['Oof! That one stung.','That cheek is turning purple.','A little cut, a lot of regret.','Both sides are feeling it now.','He might need an ice pack.','Maximum cartoon damage!'];const groups=['bruiseOne','bruiseTwo','cutsOne','cutsTwo'].map(id=>document.getElementById(id));function renderDamage(){groups.forEach((g,i)=>g.setAttribute('opacity',slaps>=i+1?'1':'0'));}function playImpact(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const ac=new AC(),now=ac.currentTime,n=Math.floor(ac.sampleRate*.1),buf=ac.createBuffer(1,n,ac.sampleRate),d=buf.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);const src=ac.createBufferSource(),filter=ac.createBiquadFilter(),gain=ac.createGain();src.buffer=buf;filter.type='lowpass';filter.frequency.value=1300;gain.gain.setValueAtTime(.38,now);gain.gain.exponentialRampToValueAtTime(.001,now+.1);src.connect(filter);filter.connect(gain);gain.connect(ac.destination);src.start();src.stop(now+.1);setTimeout(()=>ac.close(),250);}catch(e){}}function voice(){if(!('speechSynthesis'in window))return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(slaps%2?'Ow!':'Off!');u.rate=1.08;u.pitch=slaps%2?1.05:.86;u.volume=.8;window.speechSynthesis.speak(u);}catch(e){}}function slap(){slaps++;face.classList.remove('hit');void face.offsetWidth;face.classList.add('hit');setTimeout(()=>face.classList.remove('hit'),240);scoreEl.textContent=slaps;levelEl.textContent=levels[Math.min(5,Math.floor(slaps/2))];fill.style.width=Math.min(100,slaps/8*100)+'%';message.textContent=lines[Math.min(lines.length-1,slaps-1)];renderDamage();playImpact();voice();const s=document.createElement('span');s.className='spark';s.textContent=['💥','✋','POW!','SMACK!'][Math.floor(Math.random()*4)];s.style.left=(28+Math.random()*44)+'%';s.style.top=(20+Math.random()*35)+'%';s.style.setProperty('--dx',(Math.random()*100-50)+'px');stage.appendChild(s);setTimeout(()=>s.remove(),600);}function reset(){slaps=0;scoreEl.textContent='0';levelEl.textContent='Fresh';fill.style.width='0%';message.textContent="He's feeling pretty confident...";stage.querySelectorAll('.spark').forEach(x=>x.remove());renderDamage();if('speechSynthesis'in window)window.speechSynthesis.cancel();}face.addEventListener('click',slap);face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slap();}});document.getElementById('slapBtn').addEventListener('click',slap);document.getElementById('resetBtn').addEventListener('click',reset);renderDamage();})();</script>
 </body></html>
