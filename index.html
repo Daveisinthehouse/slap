@@ -42,7 +42,7 @@
  const clean=new Image(), damaged=new Image();
  clean.src='slap-face.png'; damaged.src='slap-damaged.png';
  clean.onload=init; damaged.onload=init;
- function init(){if(!clean.complete||!damaged.complete||!clean.naturalWidth||!damaged.naturalWidth)return;ready=1;buildDamageLayers();renderFace();}
+ function init(){if(ready||!clean.complete||!damaged.complete||!clean.naturalWidth||!damaged.naturalWidth)return;ready=1;buildDamageLayers();renderFace();}
  const regions={
   foreheadLeft:[[50,77],[94,72],[121,94],[119,123],[98,140],[66,133],[52,112]],
   foreheadRight:[[145,70],[210,68],[229,101],[219,133],[190,145],[158,116]],
