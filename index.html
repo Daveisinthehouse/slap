@@ -84,6 +84,9 @@
    fill.style.width=((frame-1)/17*100)+'%';
  }
  const slapSounds=['/slap/slap%201.mp3','/slap/slap%202.mp3','/slap/slap%203.mp3'].map(src=>{const audio=new Audio(src);audio.preload='auto';audio.load();return audio;});
+ const finalVoice=new Audio('/slap/voice.mp3');
+ finalVoice.preload='auto';
+ finalVoice.load();
  let lastSound=-1,audioPrimed=false;
  function primeAudio(){if(audioPrimed)return;audioPrimed=true;slapSounds.forEach(a=>{try{a.load();}catch(e){}});}
  function playSlapSound(){
@@ -110,19 +113,11 @@
    message.textContent=lines[Math.min(17,Math.floor(slaps/5))];
    if(slaps>=85&&!finalVoicePlayed){
      finalVoicePlayed=true;
-     if('speechSynthesis' in window&&'SpeechSynthesisUtterance' in window){
-       window.speechSynthesis.cancel();
-       const chooseMaleVoice=()=>{
-         const voices=window.speechSynthesis.getVoices();
-         const maleVoice=voices.find(v=>/david|daniel|ryan|guy|mark|james|thomas|george|alex|oliver|liam/i.test(v.name)&&!/female/i.test(v.name))
-           ||voices.find(v=>/male/i.test(v.name)&&!/female/i.test(v.name));
-         const voiceLine=new SpeechSynthesisUtterance('ok, I will do a bit of work');
-         voiceLine.lang='en-IE';voiceLine.rate=0.9;voiceLine.pitch=0.68;
-         if(maleVoice)voiceLine.voice=maleVoice;
-         window.speechSynthesis.speak(voiceLine);
-       };
-       if(window.speechSynthesis.getVoices().length)chooseMaleVoice();
-       else window.speechSynthesis.addEventListener('voiceschanged',chooseMaleVoice,{once:true});
+     if(soundOn){
+       finalVoice.pause();
+       finalVoice.currentTime=0;
+       const voicePlayback=finalVoice.play();
+       if(voicePlayback&&typeof voicePlayback.catch==='function')voicePlayback.catch(()=>{});
      }
    }
    playSlapSound();
