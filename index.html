@@ -122,7 +122,7 @@
    scoreEl.textContent=slaps;
    renderFace();
    message.textContent=lines[Math.min(17,Math.floor(slaps/5))];
-   if(slaps>=85&&!finalVoicePlayed){
+   if(slaps>=100&&!finalVoicePlayed){
      finalVoicePlayed=true;
      gameOver=true;
      message.textContent='';
@@ -168,6 +168,7 @@
    face.removeAttribute('aria-disabled');
    stage.querySelectorAll('.spark').forEach(el=>el.remove());
    renderFace();
+   scheduleCan();
  });
  soundBtn.addEventListener('click',()=>{
    soundOn=!soundOn;
@@ -177,6 +178,7 @@
  });
  faceImage.addEventListener('error',()=>{message.textContent='Could not load storyboard frame '+Math.min(18,slaps+1)+'. Check the image files.';});
  renderFace();
+ scheduleCan();
 
 })();</script>
 </body></html>
