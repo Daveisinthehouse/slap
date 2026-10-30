@@ -113,14 +113,22 @@
    message.textContent=lines[Math.min(17,Math.floor(slaps/5))];
    if(slaps>=5&&!finalVoicePlayed){
      finalVoicePlayed=true;
-     if(soundOn){
-       finalVoice.pause();
-       finalVoice.currentTime=0;
-       const voicePlayback=finalVoice.play();
-       if(voicePlayback&&typeof voicePlayback.catch==='function')voicePlayback.catch(()=>{});
+     // Give the recording exclusive use of audio at the test trigger.
+     slapSounds.forEach(a=>{a.pause();a.currentTime=0;});
+     finalVoice.pause();
+     finalVoice.currentTime=0;
+     finalVoice.volume=1;
+     finalVoice.muted=false;
+     const voicePlayback=finalVoice.play();
+     if(voicePlayback&&typeof voicePlayback.catch==='function'){
+       voicePlayback.catch(err=>{
+         console.warn('Could not play voice.mp3:',err);
+         message.textContent='Voice playback blocked — tap SLAP again to retry';
+       });
      }
+   } else {
+     playSlapSound();
    }
-   playSlapSound();
    const s=document.createElement('span');s.className='spark';
    s.textContent=['💥','✋','POW!','SMACK!'][Math.floor(Math.random()*4)];
    s.style.left=(28+Math.random()*44)+'%';s.style.top=(20+Math.random()*35)+'%';
