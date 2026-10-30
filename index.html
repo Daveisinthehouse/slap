@@ -53,18 +53,18 @@
    levelEl.textContent=levels[frame-1];
    fill.style.width=((frame-1)/17*100)+'%';
  }
- function cry(){
-   if(!soundOn||!('speechSynthesis'in window))return;
-   try{
-     window.speechSynthesis.cancel();
-     const cries=['Waaaaah! Boo-hoo!','Nooooo! *sob sob*','Waaah! I want my mummy!','Boo-hoo-hoo!'];
-     const u=new SpeechSynthesisUtterance(cries[(slaps-1)%cries.length]);
-     const voices=window.speechSynthesis.getVoices();
-     const feminine=voices.find(v=>/female|woman|zira|samantha|victoria|karen|moira|serena/i.test(v.name));
-     if(feminine)u.voice=feminine;
-     u.rate=.82;u.pitch=2;u.volume=1;
-     window.speechSynthesis.speak(u);
-   }catch(e){}
+ const slapSounds=['/slap/slap%201.mp3','/slap/slap%202.mp3','/slap/slap%203.mp3'].map(src=>new Audio(src));
+ let lastSound=-1;
+ function playSlapSound(){
+   if(!soundOn)return;
+   let pick=Math.floor(Math.random()*slapSounds.length);
+   if(slapSounds.length>1&&pick===lastSound)pick=(pick+1+Math.floor(Math.random()*(slapSounds.length-1)))%slapSounds.length;
+   lastSound=pick;
+   const audio=slapSounds[pick];
+   slapSounds.forEach(a=>{if(a!==audio){a.pause();a.currentTime=0;}});
+   audio.pause();audio.currentTime=0;
+   const result=audio.play();
+   if(result&&typeof result.catch==='function')result.catch(()=>{});
  }
  function slap(){
    slaps++;
@@ -73,7 +73,7 @@
    scoreEl.textContent=slaps;
    renderFace();
    message.textContent=lines[Math.min(17,Math.floor(slaps/5))];
-   cry();
+   playSlapSound();
    const s=document.createElement('span');s.className='spark';
    s.textContent=['💥','✋','POW!','SMACK!'][Math.floor(Math.random()*4)];
    s.style.left=(28+Math.random()*44)+'%';s.style.top=(20+Math.random()*35)+'%';
@@ -84,7 +84,6 @@
    slaps=0;scoreEl.textContent='0';message.textContent=lines[0];
    stage.querySelectorAll('.spark').forEach(x=>x.remove());
    renderFace();
-   if('speechSynthesis'in window)window.speechSynthesis.cancel();
  }
  face.addEventListener('click',slap);
  face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slap();}});
@@ -93,7 +92,7 @@
  soundBtn.addEventListener('click',()=>{
    soundOn=!soundOn;soundBtn.textContent=soundOn?'🔊 Sound on':'🔇 Sound off';
    soundBtn.setAttribute('aria-pressed',String(soundOn));
-   if(!soundOn&&'speechSynthesis'in window)window.speechSynthesis.cancel();
+   if(!soundOn)slapSounds.forEach(a=>{a.pause();a.currentTime=0;});
  });
  faceImage.addEventListener('error',()=>{message.textContent='Could not load storyboard frame '+Math.min(18,slaps+1)+'. Check the image files.';});
  renderFace();
