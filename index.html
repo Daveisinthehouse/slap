@@ -25,51 +25,7 @@
  <div class="hud"><div class="stat"><small>Slaps</small><strong id="score">0</strong></div><div class="stat"><small>Damage level</small><strong id="level">Fresh</strong></div></div>
  <div class="stage" id="stage">
   <div class="face-wrap" id="face" role="button" tabindex="0" aria-label="Slap the pixel face">
-   <img class="face-image" src="/slap/slap-face%20(1).png?v=20" alt="Clean 16-bit face" draggable="false">
-   <svg class="damage-overlay" viewBox="0 0 260 320" preserveAspectRatio="none" aria-hidden="true">
-    <g id="bruiseOne" opacity="0"><ellipse cx="89" cy="151" rx="27" ry="13" fill="#42213f" opacity=".65"/><ellipse cx="89" cy="151" rx="19" ry="8" fill="#82466f" opacity=".42"/></g>
-    <g id="bruiseTwo" opacity="0"><ellipse cx="171" cy="151" rx="25" ry="12" fill="#49223d" opacity=".58"/><ellipse cx="130" cy="181" rx="17" ry="9" fill="#7b394d" opacity=".35"/></g>
-    <g id="cutsOne" opacity="0" stroke-linecap="round" stroke-linejoin="round"><path d="M70 177 L77 181 L74 188 M181 173 L188 178 L185 184" fill="none" stroke="#40131f" stroke-width="3.5"/><path d="M70 177 L77 181 L74 188 M181 173 L188 178 L185 184" fill="none" stroke="#b52c3d" stroke-width="1.6"/></g>
-    <g id="cutsTwo" opacity="0" stroke-linecap="round" stroke-linejoin="round"><path d="M126 125 L123 135 L128 141 M153 119 L159 124 L164 123" fill="none" stroke="#40131f" stroke-width="3"/><path d="M126 125 L123 135 L128 141 M153 119 L159 124 L164 123" fill="none" stroke="#c33343" stroke-width="1.3"/><circle cx="78" cy="192" r="1.5" fill="#9d172a"/><circle cx="185" cy="189" r="1.4" fill="#9d172a"/></g>
-    <g id="bruiseThree" opacity="0"><ellipse cx="74" cy="167" rx="25" ry="12" fill="#39203f" opacity=".72"/><ellipse cx="186" cy="165" rx="24" ry="13" fill="#39203f" opacity=".68"/></g>
-    <g id="lipCut" opacity="0"><path d="M104 213 Q130 219 155 212" fill="none" stroke="#571522" stroke-width="4" stroke-linecap="round"/><path d="M106 212 Q130 216 153 211" fill="none" stroke="#b52c3d" stroke-width="1.7" stroke-linecap="round"/><circle cx="156" cy="214" r="2" fill="#9d172a"/></g>
-    <g id="bloodMarks" opacity="0"><path d="M83 185 Q81 193 83 197 Q86 194 85 189 M177 183 Q175 191 178 195 Q181 191 179 187" fill="#a51e30" opacity=".85"/><circle cx="89" cy="201" r="1.7" fill="#a51e30"/><circle cx="169" cy="198" r="1.5" fill="#a51e30"/><circle cx="135" cy="151" r="1.3" fill="#a51e30"/></g>
-    <g id="sadFace" opacity="0">
-      <!-- Inner brows lift into a worried, pleading expression -->
-      <path d="M73 140 Q86 128 101 140" fill="none" stroke="#33202a" stroke-width="4.5" stroke-linecap="round"/>
-      <path d="M159 140 Q174 128 188 139" fill="none" stroke="#33202a" stroke-width="4.5" stroke-linecap="round"/>
-      <!-- Downturned mouth -->
-      <path d="M101 218 Q130 201 159 218" fill="none" stroke="#3a1c27" stroke-width="6" stroke-linecap="round"/>
-      <path d="M106 217 Q130 205 154 217" fill="none" stroke="#a84a55" stroke-width="2.4" stroke-linecap="round"/>
-      <!-- First tears -->
-      <path d="M87 154 C84 165 86 176 84 187 C83 192 85 195 87 196 C90 193 90 188 89 182 L92 159 Z" fill="#77bce2" opacity=".8"/>
-      <path d="M88 158 C86 170 88 180 86 190" fill="none" stroke="#d5f4ff" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M172 154 C169 166 172 177 170 187 C169 192 171 195 173 196 C176 193 176 188 175 181 L177 159 Z" fill="#77bce2" opacity=".8"/>
-      <path d="M173 158 C171 169 173 180 172 190" fill="none" stroke="#d5f4ff" stroke-width="1.8" stroke-linecap="round"/>
-    </g>
-    <g id="sadFaceMore" opacity="0">
-      <!-- More pronounced worried brows and trembling frown -->
-      <path d="M71 141 Q85 124 102 140 M157 140 Q174 124 190 139" fill="none" stroke="#291923" stroke-width="5.5" stroke-linecap="round"/>
-      <path d="M98 220 Q130 196 162 220" fill="none" stroke="#291923" stroke-width="7" stroke-linecap="round"/>
-      <path d="M105 218 Q130 202 155 218" fill="none" stroke="#b64c5a" stroke-width="3" stroke-linecap="round"/>
-      <!-- Longer, brighter tears -->
-      <path d="M86 154 C82 170 86 185 83 200 C82 206 84 211 87 213 C91 209 90 203 89 196 L92 158 Z" fill="#69b8e6" opacity=".9"/>
-      <path d="M87 160 C84 177 88 192 86 205" fill="none" stroke="#e0f8ff" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M173 154 C169 170 173 184 171 198 C170 204 172 209 175 211 C179 207 178 201 177 194 L179 158 Z" fill="#69b8e6" opacity=".9"/>
-      <path d="M174 160 C171 177 175 191 173 204" fill="none" stroke="#e0f8ff" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M87 213 Q90 218 87 222 M175 211 Q178 216 175 220" fill="none" stroke="#69b8e6" stroke-width="2" stroke-linecap="round"/>
-    </g>
-    <g id="bruiseFour" opacity="0"><ellipse cx="91" cy="147" rx="34" ry="20" fill="#39203f" opacity=".72"/><ellipse cx="173" cy="151" rx="31" ry="18" fill="#39203f" opacity=".7"/><ellipse cx="131" cy="180" rx="25" ry="15" fill="#75334f" opacity=".45"/></g>
-    <g id="cutsThree" opacity="0" stroke-linecap="round" stroke-linejoin="round"><path d="M60 164 L69 171 L65 182 M193 160 L201 167 L197 177 M113 132 L119 139" fill="none" stroke="#35121c" stroke-width="4.5"/><path d="M60 164 L69 171 L65 182 M193 160 L201 167 L197 177 M113 132 L119 139" fill="none" stroke="#b52c3d" stroke-width="2"/></g>
-    <g id="swelling" opacity="0"><ellipse cx="91" cy="154" rx="32" ry="21" fill="#7d3659" opacity=".45"/><ellipse cx="171" cy="155" rx="30" ry="19" fill="#7d3659" opacity=".4"/><ellipse cx="130" cy="183" rx="22" ry="13" fill="#a64b5a" opacity=".3"/></g>
-    <g id="bloodMore" opacity="0"><path d="M67 180 Q64 189 67 194 Q70 190 69 185 M198 176 Q195 185 198 190 Q201 186 200 181 M121 143 Q118 151 121 155 Q124 151 123 147" fill="#a51e30"/><circle cx="75" cy="198" r="2.2" fill="#9d172a"/><circle cx="190" cy="194" r="2" fill="#9d172a"/><circle cx="144" cy="158" r="1.8" fill="#9d172a"/></g>
-    <g id="tearsHeavy" opacity="0"><path d="M86 154 C81 174 84 191 81 210 C80 216 83 221 87 223 C92 218 91 211 90 202 L93 157 Z" fill="#69b8e6" opacity=".95"/><path d="M174 154 C169 174 172 191 169 210 C168 216 171 221 175 223 C180 218 179 211 178 202 L181 157 Z" fill="#69b8e6" opacity=".95"/><path d="M86 160 C83 181 87 200 85 214 M174 160 C171 181 175 200 173 214" fill="none" stroke="#e0f8ff" stroke-width="2.4" stroke-linecap="round"/></g>
-    <g id="finalFrown" opacity="0"><path d="M96 222 Q130 190 164 222" fill="none" stroke="#21151e" stroke-width="8" stroke-linecap="round"/><path d="M103 220 Q130 198 157 220" fill="none" stroke="#9e414d" stroke-width="3.5" stroke-linecap="round"/><path d="M78 134 L96 141 M164 141 L184 133" fill="none" stroke="#291923" stroke-width="5" stroke-linecap="round"/></g>
-<g id="smileBruise" opacity="0"><ellipse cx="130" cy="220" rx="43" ry="19" fill="#6b3545" opacity=".42"/><path d="M95 211 Q130 222 165 211" fill="none" stroke="#8e3945" stroke-width="4" stroke-linecap="round"/></g>
-<g id="smileCrack" opacity="0"><path d="M94 210 Q130 228 166 210 L161 230 Q130 244 99 230 Z" fill="#3b171c" opacity=".92"/><path d="M97 211 Q130 225 163 211" fill="none" stroke="#7d2936" stroke-width="5" stroke-linecap="round"/><path d="M103 229 Q130 237 157 229" fill="none" stroke="#a94b55" stroke-width="3" stroke-linecap="round"/></g>
-<g id="smileGone" opacity="0"><path d="M91 211 Q130 232 169 211 L165 230 Q130 251 95 230 Z" fill="#4a1d24" opacity=".97"/><path d="M94 212 Q130 231 166 212" fill="none" stroke="#62212c" stroke-width="6" stroke-linecap="round"/><path d="M101 230 Q130 240 159 230" fill="none" stroke="#c05a61" stroke-width="3" stroke-linecap="round"/></g>
-<g id="deepFrown" opacity="0"><path d="M94 218 Q130 190 166 218" fill="none" stroke="#2b151c" stroke-width="8" stroke-linecap="round"/><path d="M101 217 Q130 197 159 217" fill="none" stroke="#a94751" stroke-width="3.5" stroke-linecap="round"/></g>
-   </svg>
+   <img class="face-image" id="faceImage" src="/slap/slap-stage-01.png?v=25" alt="Face — damage stage 1 of 18" draggable="false">
   </div>
   <div class="slaphint">TAP THE FACE OR HIT THE SLAP BUTTON</div>
   <div class="meter"><span id="meterFill"></span></div>
@@ -79,5 +35,78 @@
  <div class="foot">Just cartoon slapstick — no real people were harmed in the making of this game.</div>
 </main>
 <script>
-(()=>{const face=document.getElementById('face'),scoreEl=document.getElementById('score'),levelEl=document.getElementById('level'),fill=document.getElementById('meterFill'),message=document.getElementById('message'),stage=document.getElementById('stage');let slaps=0;const levels=['Fresh','Rosy','Bruised','Battered','Rough','Very Sorry','Miserable','Devastated','Had Enough','Worse','Very Battered','Swollen','Bloodied','Crying','Maximum Damage'];const lines=['Oof! That one stung.','That cheek is turning purple.','A little cut, a lot of regret.','He is looking a bit worse.','His smile is fading.','He looks really sorry now.','A tear is forming...','He has had enough!','Poor lad.','More bruises are appearing.','Those bruises are deepening.','His face is really swollen now.','More cuts and marks.','He is crying properly now.','Maximum damage! He needs a break.'];const ids=['bruiseOne','bruiseTwo','cutsOne','cutsTwo','bruiseThree','lipCut','bloodMarks','sadFace','sadFaceMore','bruiseFour','cutsThree','swelling','bloodMore','tearsHeavy','finalFrown','smileBruise','smileCrack','smileGone','deepFrown'];const groups=ids.map(id=>document.getElementById(id));function renderDamage(){const thresholds=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,3,6,9,12];groups.forEach((g,i)=>g.setAttribute('opacity',slaps>=thresholds[i]?'1':'0'));}function playImpact(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const ac=new AC(),now=ac.currentTime,n=Math.floor(ac.sampleRate*.1),buf=ac.createBuffer(1,n,ac.sampleRate),d=buf.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);const src=ac.createBufferSource(),filter=ac.createBiquadFilter(),gain=ac.createGain();src.buffer=buf;filter.type='lowpass';filter.frequency.value=1300;gain.gain.setValueAtTime(.38,now);gain.gain.exponentialRampToValueAtTime(.001,now+.1);src.connect(filter);filter.connect(gain);gain.connect(ac.destination);src.start();src.stop(now+.1);setTimeout(()=>ac.close(),250);}catch(e){}}function voice(){if(!('speechSynthesis'in window))return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(slaps%2?'Ow!':'Off!');u.rate=1.08;u.pitch=slaps%2?1.05:.86;u.volume=.8;window.speechSynthesis.speak(u);}catch(e){}}function slap(){slaps++;face.classList.remove('hit');void face.offsetWidth;face.classList.add('hit');setTimeout(()=>face.classList.remove('hit'),240);scoreEl.textContent=slaps;levelEl.textContent=levels[Math.min(levels.length-1,Math.floor((slaps-1)/1))];fill.style.width=Math.min(100,slaps/15*100)+'%';message.textContent=lines[Math.min(lines.length-1,slaps-1)]||'He is looking very sorry now.';renderDamage();playImpact();voice();const s=document.createElement('span');s.className='spark';s.textContent=['💥','✋','POW!','SMACK!'][Math.floor(Math.random()*4)];s.style.left=(28+Math.random()*44)+'%';s.style.top=(20+Math.random()*35)+'%';s.style.setProperty('--dx',(Math.random()*100-50)+'px');stage.appendChild(s);setTimeout(()=>s.remove(),600);}function reset(){slaps=0;scoreEl.textContent='0';levelEl.textContent='Fresh';fill.style.width='0%';message.textContent="He's feeling pretty confident...";stage.querySelectorAll('.spark').forEach(x=>x.remove());renderDamage();if('speechSynthesis'in window)window.speechSynthesis.cancel();}face.addEventListener('click',slap);face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slap();}});document.getElementById('slapBtn').addEventListener('click',slap);document.getElementById('resetBtn').addEventListener('click',reset);renderDamage();})();</script>
+(()=> {
+ const face=document.getElementById('face');
+ const faceImage=document.getElementById('faceImage');
+ const scoreEl=document.getElementById('score');
+ const levelEl=document.getElementById('level');
+ const fill=document.getElementById('meterFill');
+ const message=document.getElementById('message');
+ const stage=document.getElementById('stage');
+ const soundBtn=document.getElementById('soundBtn');
+ let slaps=0, soundOn=true;
+ const levels=['Fresh','A little sore','First bruise','Bruised','Black eye','Battered','More bruises','Cut and bruised','Looking rough','Very battered','Swollen','Bloodied','Miserable','Really sorry','Tearful','Crying','Almost had enough','Maximum damage'];
+ const lines=['He is feeling pretty confident...','Oof! That one stung.','A little red mark.','That cheek is turning purple.','A black eye is coming up.','He is looking worse.','More bruises are appearing.','That looks sore.','His smile is starting to fade.','He is not enjoying this.','Both eyes are taking a beating.','His face is getting swollen.','That is another nasty bruise.','He is looking very sorry now.','The tears are starting.','He is crying now.','Nearly at the end...','Maximum damage! Reset for a fresh face.'];
+ function renderFace(){
+   const frame=Math.min(18,slaps+1);
+   faceImage.src='/slap/slap-stage-'+String(frame).padStart(2,'0')+'.png?v=25';
+   faceImage.alt='Face — damage stage '+frame+' of 18';
+   levelEl.textContent=levels[frame-1];
+   fill.style.width=((frame-1)/17*100)+'%';
+ }
+ function playImpact(){
+   if(!soundOn)return;
+   try{
+     const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+     const ac=new AC(),now=ac.currentTime,n=Math.floor(ac.sampleRate*.1);
+     const buf=ac.createBuffer(1,n,ac.sampleRate),d=buf.getChannelData(0);
+     for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+     const src=ac.createBufferSource(),filter=ac.createBiquadFilter(),gain=ac.createGain();
+     src.buffer=buf;filter.type='lowpass';filter.frequency.value=1300;
+     gain.gain.setValueAtTime(.38,now);gain.gain.exponentialRampToValueAtTime(.001,now+.1);
+     src.connect(filter);filter.connect(gain);gain.connect(ac.destination);src.start();src.stop(now+.1);
+     setTimeout(()=>ac.close(),250);
+   }catch(e){}
+ }
+ function voice(){
+   if(!soundOn||!('speechSynthesis'in window))return;
+   try{
+     window.speechSynthesis.cancel();
+     const u=new SpeechSynthesisUtterance(slaps%2?'Ow!':'Off!');
+     u.rate=1.08;u.pitch=slaps%2?1.05:.86;u.volume=.8;
+     window.speechSynthesis.speak(u);
+   }catch(e){}
+ }
+ function slap(){
+   slaps++;
+   face.classList.remove('hit');void face.offsetWidth;face.classList.add('hit');
+   setTimeout(()=>face.classList.remove('hit'),240);
+   scoreEl.textContent=slaps;
+   renderFace();
+   message.textContent=lines[Math.min(17,slaps)];
+   playImpact();voice();
+   const s=document.createElement('span');s.className='spark';
+   s.textContent=['💥','✋','POW!','SMACK!'][Math.floor(Math.random()*4)];
+   s.style.left=(28+Math.random()*44)+'%';s.style.top=(20+Math.random()*35)+'%';
+   s.style.setProperty('--dx',(Math.random()*100-50)+'px');
+   stage.appendChild(s);setTimeout(()=>s.remove(),600);
+ }
+ function reset(){
+   slaps=0;scoreEl.textContent='0';message.textContent=lines[0];
+   stage.querySelectorAll('.spark').forEach(x=>x.remove());
+   renderFace();
+   if('speechSynthesis'in window)window.speechSynthesis.cancel();
+ }
+ face.addEventListener('click',slap);
+ face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slap();}});
+ document.getElementById('slapBtn').addEventListener('click',slap);
+ document.getElementById('resetBtn').addEventListener('click',reset);
+ soundBtn.addEventListener('click',()=>{
+   soundOn=!soundOn;soundBtn.textContent=soundOn?'🔊 Sound on':'🔇 Sound off';
+   soundBtn.setAttribute('aria-pressed',String(soundOn));
+   if(!soundOn&&'speechSynthesis'in window)window.speechSynthesis.cancel();
+ });
+ faceImage.addEventListener('error',()=>{message.textContent='Could not load storyboard frame '+Math.min(18,slaps+1)+'. Check the image files.';});
+ renderFace();
+})();</script>
 </body></html>
