@@ -108,12 +108,17 @@
      finalVoicePlayed=true;
      if('speechSynthesis' in window&&'SpeechSynthesisUtterance' in window){
        window.speechSynthesis.cancel();
-       const voices=window.speechSynthesis.getVoices();
-       const maleVoice=voices.find(v=>/\b(male|david|daniel|ryan|guy|mark|james|thomas|george)\b/i.test(v.name)&&!/female|samantha|victoria|karen|moira|serena|kate|susan/i.test(v.name))||voices.find(v=>/^en-IE/i.test(v.lang)&&/\b(male|david|daniel|ryan|guy|mark|james|thomas|george)\b/i.test(v.name));
-       const voiceLine=new SpeechSynthesisUtterance('ok, I will do a bit of work');
-       voiceLine.lang='en-IE';voiceLine.rate=0.92;voiceLine.pitch=0.78;
-       if(maleVoice)voiceLine.voice=maleVoice;
-       window.speechSynthesis.speak(voiceLine);
+       const chooseMaleVoice=()=>{
+         const voices=window.speechSynthesis.getVoices();
+         const maleVoice=voices.find(v=>/david|daniel|ryan|guy|mark|james|thomas|george|alex|oliver|liam/i.test(v.name)&&!/female/i.test(v.name))
+           ||voices.find(v=>/male/i.test(v.name)&&!/female/i.test(v.name));
+         const voiceLine=new SpeechSynthesisUtterance('ok, I will do a bit of work');
+         voiceLine.lang='en-IE';voiceLine.rate=0.9;voiceLine.pitch=0.68;
+         if(maleVoice)voiceLine.voice=maleVoice;
+         window.speechSynthesis.speak(voiceLine);
+       };
+       if(window.speechSynthesis.getVoices().length)chooseMaleVoice();
+       else window.speechSynthesis.addEventListener('voiceschanged',chooseMaleVoice,{once:true});
      }
    }
    playSlapSound();
@@ -123,15 +128,9 @@
    s.style.setProperty('--dx',(Math.random()*100-50)+'px');
    stage.appendChild(s);setTimeout(()=>s.remove(),600);
  }
- function reset(){
-   slaps=0;finalVoicePlayed=false;scoreEl.textContent='0';message.textContent=lines[0];
-   stage.querySelectorAll('.spark').forEach(x=>x.remove());
-   renderFace();
- }
  face.addEventListener('click',slap);
  face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slap();}});
  document.getElementById('slapBtn').addEventListener('click',slap);
- document.getElementById('resetBtn').addEventListener('click',reset);
  soundBtn.addEventListener('click',()=>{
    soundOn=!soundOn;soundBtn.textContent=soundOn?'🔊 Sound on':'🔇 Sound off';
    soundBtn.setAttribute('aria-pressed',String(soundOn));
