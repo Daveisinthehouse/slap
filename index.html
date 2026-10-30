@@ -170,7 +170,7 @@
    stage.appendChild(s);setTimeout(()=>s.remove(),600);
  }
  face.addEventListener('click',slap);
- face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();slap();}});
+ face.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();if(e.repeat)return;slap();}});
  document.addEventListener('dblclick',e=>{if(e.target.closest('#face,#slapBtn,#soundBtn'))e.preventDefault();},{passive:false});
  document.getElementById('slapBtn').addEventListener('click',slap);
  document.getElementById('resetBtn').addEventListener('click',()=>{
