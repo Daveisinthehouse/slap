@@ -111,7 +111,7 @@
    scoreEl.textContent=slaps;
    renderFace();
    message.textContent=lines[Math.min(17,Math.floor(slaps/5))];
-   if(slaps>=85&&!finalVoicePlayed){
+   if(slaps>=5&&!finalVoicePlayed){
      finalVoicePlayed=true;
      if(soundOn){
        finalVoice.pause();
