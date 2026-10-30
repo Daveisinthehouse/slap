@@ -7,7 +7,11 @@
 <title>SLAP! — Pixel Face</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-.end-message{height:auto;min-height:42px;font-family:'Bangers',Impact,fantasy,sans-serif;font-size:clamp(2rem,9vw,3.4rem);letter-spacing:.05em;color:#ffd166;text-shadow:3px 3px 0 #d52c35,6px 6px 0 #17101b;transform:rotate(-2deg);}
+.end-message{display:none}
+.end-card{position:absolute;z-index:40;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;visibility:hidden}
+.end-card.show{visibility:visible;animation:endCardIn .85s cubic-bezier(.16,1.35,.35,1) forwards}
+.end-card span{font-family:'Bangers',Impact,fantasy,sans-serif;font-size:clamp(3.4rem,15vw,7rem);line-height:.95;letter-spacing:.04em;color:#ffe45c;text-align:center;text-shadow:4px 4px 0 #d52c35,8px 8px 0 #17101b,-2px -2px 0 #fff;transform:rotate(-7deg);padding:12px}
+@keyframes endCardIn{0%{opacity:0;transform:scale(.12) rotate(18deg)}65%{opacity:1;transform:scale(1.13) rotate(-5deg)}82%{transform:scale(.94) rotate(-8deg)}100%{opacity:1;transform:scale(1) rotate(-7deg)}}
 :root{color-scheme:dark;--ink:#f8f1e5;--muted:#b7b0c5;--pink:#ff6d91;--gold:#ffd166}
 *{box-sizing:border-box}body{margin:0;touch-action:pan-y;min-height:100vh;min-height:100svh;background:radial-gradient(ellipse at 50% 22%,#393052 0,#201d30 43%,#12111b 100%);color:var(--ink);font-family:ui-rounded,system-ui,-apple-system,Segoe UI,sans-serif;display:flex;justify-content:center;align-items:center;padding:18px;overflow-x:hidden}
 .game{width:min(100%,560px);text-align:center}.eyebrow{letter-spacing:.25em;font-size:.72rem;font-weight:900;color:var(--gold)}h1{font-size:clamp(2.6rem,12vw,4.8rem);line-height:.95;margin:8px 0 10px;font-weight:1000;letter-spacing:-.07em;text-shadow:4px 4px 0 #a73c6a} .sub{color:var(--muted);margin:0 0 18px;font-size:.96rem}
@@ -31,6 +35,7 @@
    <div class="punch-effect" id="punchEffect" aria-hidden="true"><span class="punch-fist">👊</span><span class="punch-fist left">👊</span><span class="punch-burst"></span></div>
   </div>
   <div class="meter"><span id="meterFill"></span></div>
+  <div class="end-card" id="endCard" aria-live="polite"><span>Thats all folks</span></div>
  </div>
  <div class="message" id="message" aria-live="polite">Ah, would ya stop!</div>
  <div class="controls"><button id="slapBtn">✋ SLAP!</button><button id="soundBtn" aria-pressed="true">🔊 Sound on</button><button id="resetBtn" type="button">↻ Reset</button></div>
@@ -87,11 +92,11 @@
    scoreEl.textContent=slaps;
    renderFace();
    message.textContent=lines[Math.min(17,Math.floor(slaps/5))];
-   if(slaps>=5&&!finalVoicePlayed){
+   if(slaps>=85&&!finalVoicePlayed){
      finalVoicePlayed=true;
      gameOver=true;
-     message.textContent="That’s all folks!";
-     message.classList.add('end-message');
+     message.textContent='';
+     document.getElementById('endCard').classList.add('show');
      document.getElementById('slapBtn').disabled=true;
      face.setAttribute('aria-disabled','true');
      // Stop every slap effect so the ending recording plays on its own.
@@ -126,7 +131,7 @@
    slapSounds.forEach(a=>{a.pause();a.currentTime=0;});
    scoreEl.textContent='0';
    message.textContent='Ah, would ya stop!';
-   message.classList.remove('end-message');
+   document.getElementById('endCard').classList.remove('show');
    document.getElementById('slapBtn').disabled=false;
    face.removeAttribute('aria-disabled');
    stage.querySelectorAll('.spark').forEach(el=>el.remove());
@@ -140,6 +145,6 @@
  });
  faceImage.addEventListener('error',()=>{message.textContent='Could not load storyboard frame '+Math.min(18,slaps+1)+'. Check the image files.';});
  renderFace();
- scheduleCan();
+
 })();</script>
 </body></html>
