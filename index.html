@@ -85,6 +85,16 @@
      collected=true;
      can.remove();
      if(gameOver)return;
+     // The can's drink sound takes priority over every other game sound.
+     sodaPlaying=true;
+     sodaPlaying=false;sodaSound.pause();sodaSound.currentTime=0;
+     slapSounds.forEach(a=>{a.pause();a.currentTime=0;});
+     finalVoice.pause();finalVoice.currentTime=0;
+     sodaSound.pause();sodaSound.currentTime=0;
+     const sodaPlayback=sodaSound.play();
+     if(sodaPlayback&&typeof sodaPlayback.catch==='function'){
+       sodaPlayback.catch(err=>{console.warn('Could not play soda.mp3:',err);sodaPlaying=false;});
+     }
      slaps=0;finalVoicePlayed=false;
      scoreEl.textContent='0';
      message.textContent='ENERGY RESTORED! Fresh face!';
@@ -113,10 +123,15 @@
  const finalVoice=new Audio('/slap/voice.mp3');
  finalVoice.preload='auto';
  finalVoice.load();
+ const sodaSound=new Audio('/slap/soda.mp3');
+ sodaSound.preload='auto';
+ sodaSound.load();
+ let sodaPlaying=false;
+ sodaSound.addEventListener('ended',()=>{sodaPlaying=false;});
  let lastSound=-1,audioPrimed=false;
  function primeAudio(){if(audioPrimed)return;audioPrimed=true;slapSounds.forEach(a=>{try{a.load();}catch(e){}});}
  function playSlapSound(){
-   if(!soundOn)return;
+   if(!soundOn||sodaPlaying)return;
    let pick=Math.floor(Math.random()*slapSounds.length);
    if(slapSounds.length>1&&pick===lastSound)pick=(pick+1+Math.floor(Math.random()*(slapSounds.length-1)))%slapSounds.length;
    lastSound=pick;
@@ -175,6 +190,7 @@
  document.getElementById('slapBtn').addEventListener('click',slap);
  document.getElementById('resetBtn').addEventListener('click',()=>{
    slaps=0;finalVoicePlayed=false;gameOver=false;
+   sodaPlaying=false;sodaSound.pause();sodaSound.currentTime=0;
    finalVoice.pause();finalVoice.currentTime=0;
    slapSounds.forEach(a=>{a.pause();a.currentTime=0;});
    scoreEl.textContent='0';
