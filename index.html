@@ -48,7 +48,7 @@
  const lines=['He is feeling pretty confident...','Oof! That one stung.','A little red mark.','That cheek is turning purple.','A black eye is coming up.','He is looking worse.','More bruises are appearing.','That looks sore.','His smile is starting to fade.','He is not enjoying this.','Both eyes are taking a beating.','His face is getting swollen.','That is another nasty bruise.','He is looking very sorry now.','The tears are starting.','He is crying now.','Nearly at the end...','Maximum damage! Reset for a fresh face.'];
  function renderFace(){
    const frame=Math.min(18,Math.floor(slaps/5)+1);
-   faceImage.src='/slap/slap-stage-'+String(frame).padStart(2,'0')+'.png?v=25';
+   faceImage.src='/slap/slap-stage-'+String(frame).padStart(2,'0')+'.png?v=28';
    faceImage.alt='Face — damage stage '+frame+' of 18';
    levelEl.textContent=levels[frame-1];
    fill.style.width=((frame-1)/17*100)+'%';
