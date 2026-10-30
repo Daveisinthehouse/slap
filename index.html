@@ -31,7 +31,7 @@
   <div class="slaphint">TAP THE FACE OR HIT THE SLAP BUTTON</div>
   <div class="meter"><span id="meterFill"></span></div>
  </div>
- <div class="message" id="message" aria-live="polite">He's feeling pretty confident...</div>
+ <div class="message" id="message" aria-live="polite">Ah, would ya stop!</div>
  <div class="controls"><button id="slapBtn">✋ SLAP!</button><button id="resetBtn">↻ Reset</button><button id="soundBtn" aria-pressed="true">🔊 Sound on</button></div>
 </main>
 <script>
@@ -47,7 +47,7 @@
  const punchEffect=document.getElementById('punchEffect');
  let slaps=0, soundOn=true, finalVoicePlayed=false;
  const levels=['Fresh','A little sore','First bruise','Bruised','Black eye','Battered','More bruises','Cut and bruised','Looking rough','Very battered','Swollen','Bloodied','Miserable','Really sorry','Tearful','Crying','Almost had enough','Maximum damage'];
- const lines=['He is feeling pretty confident...','Oof! That one stung.','A little red mark.','That cheek is turning purple.','A black eye is coming up.','He is looking worse.','More bruises are appearing.','That looks sore.','His smile is starting to fade.','He is not enjoying this.','Both eyes are taking a beating.','His face is getting swollen.','That is another nasty bruise.','He is looking very sorry now.','The tears are starting.','He is crying now.','Nearly at the end...','Maximum damage! Reset for a fresh face.'];
+ const lines=['Ah, would ya stop!','Jaysus, that was a belter!','You felt that, didn’t ya?','You’re some dose!','Cop on to yourself!','Go on outta that!','Scarlet for ya!','That looks fierce sore!','You’re having a laugh!','Will ya stop acting the maggot!','Ah, leave it out!','You’re not right in the head!','What are ya like?!','Fair play, you’re still standing!','Don’t be giving me that!','You’re absolutely banjaxed!','Nearly there, ya eejit!','Ah, would ya look at the state of ya!'];
  let canTimer=null;
  function scheduleCan(){
    clearTimeout(canTimer);
