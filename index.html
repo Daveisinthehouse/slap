@@ -88,7 +88,7 @@
      // The can's drink sound takes priority over every other game sound.
      sodaPlaying=true;
      sodaPlaying=false;sodaSound.pause();sodaSound.currentTime=0;
-     slapSounds.forEach(a=>{a.pause();a.currentTime=0;});
+     stopSlapSounds();
      finalVoice.pause();finalVoice.currentTime=0;
      sodaSound.pause();sodaSound.currentTime=0;
      const sodaPlayback=sodaSound.play();
@@ -119,7 +119,10 @@
    if(slaps>=85)boilStat.classList.add('boiling');
    fill.style.width=((frame-1)/17*100)+'%';
  }
- const slapSounds=['/slap/slap%201.mp3','/slap/slap%202.mp3','/slap/slap%203.mp3'].map(src=>{const audio=new Audio(src);audio.preload='auto';audio.load();return audio;});
+ const slapSoundUrls=['/slap/slap%201.mp3','/slap/slap%202.mp3','/slap/slap%203.mp3'];
+ const slapSounds=slapSoundUrls.map(src=>{const audio=new Audio(src);audio.preload='auto';audio.load();return audio;});
+ const activeSlapSounds=new Set();
+ function stopSlapSounds(){activeSlapSounds.forEach(audio=>{audio.pause();audio.currentTime=0;});activeSlapSounds.clear();slapSounds.forEach(audio=>{audio.pause();audio.currentTime=0;});}
  const finalVoice=new Audio('/slap/voice.mp3');
  finalVoice.preload='auto';
  finalVoice.load();
@@ -135,11 +138,13 @@
    let pick=Math.floor(Math.random()*slapSounds.length);
    if(slapSounds.length>1&&pick===lastSound)pick=(pick+1+Math.floor(Math.random()*(slapSounds.length-1)))%slapSounds.length;
    lastSound=pick;
-   const audio=slapSounds[pick];
-   slapSounds.forEach(a=>{if(a!==audio){a.pause();a.currentTime=0;}});
-   audio.pause();audio.currentTime=0;
+   // Give every slap its own audio instance so a later slap never cuts it off.
+   const audio=new Audio(slapSoundUrls[pick]);
+   activeSlapSounds.add(audio);
+   audio.addEventListener('ended',()=>activeSlapSounds.delete(audio),{once:true});
+   audio.addEventListener('error',()=>activeSlapSounds.delete(audio),{once:true});
    const result=audio.play();
-   if(result&&typeof result.catch==='function')result.catch(()=>{});
+   if(result&&typeof result.catch==='function')result.catch(()=>activeSlapSounds.delete(audio));
  }
  function slap(){
    if(gameOver)return;
@@ -206,7 +211,7 @@
    soundOn=!soundOn;
    if(soundOn)primeAudio();soundBtn.textContent=soundOn?'🔊 Sound on':'🔇 Sound off';
    soundBtn.setAttribute('aria-pressed',String(soundOn));
-   if(!soundOn)slapSounds.forEach(a=>{a.pause();a.currentTime=0;});
+   if(!soundOn)stopSlapSounds();
  });
  faceImage.addEventListener('error',()=>{message.textContent='Could not load storyboard frame '+Math.min(18,slaps+1)+'. Check the image files.';});
  renderFace();
