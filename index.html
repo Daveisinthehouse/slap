@@ -53,26 +53,16 @@
    levelEl.textContent=levels[frame-1];
    fill.style.width=((frame-1)/17*100)+'%';
  }
- function playImpact(){
-   if(!soundOn)return;
-   try{
-     const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
-     const ac=new AC(),now=ac.currentTime,n=Math.floor(ac.sampleRate*.1);
-     const buf=ac.createBuffer(1,n,ac.sampleRate),d=buf.getChannelData(0);
-     for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
-     const src=ac.createBufferSource(),filter=ac.createBiquadFilter(),gain=ac.createGain();
-     src.buffer=buf;filter.type='lowpass';filter.frequency.value=1300;
-     gain.gain.setValueAtTime(.38,now);gain.gain.exponentialRampToValueAtTime(.001,now+.1);
-     src.connect(filter);filter.connect(gain);gain.connect(ac.destination);src.start();src.stop(now+.1);
-     setTimeout(()=>ac.close(),250);
-   }catch(e){}
- }
- function voice(){
+ function cry(){
    if(!soundOn||!('speechSynthesis'in window))return;
    try{
      window.speechSynthesis.cancel();
-     const u=new SpeechSynthesisUtterance(slaps%2?'Ow!':'Off!');
-     u.rate=1.08;u.pitch=slaps%2?1.05:.86;u.volume=.8;
+     const cries=['Waaaaah! Boo-hoo!','Nooooo! *sob sob*','Waaah! I want my mummy!','Boo-hoo-hoo!'];
+     const u=new SpeechSynthesisUtterance(cries[(slaps-1)%cries.length]);
+     const voices=window.speechSynthesis.getVoices();
+     const feminine=voices.find(v=>/female|woman|zira|samantha|victoria|karen|moira|serena/i.test(v.name));
+     if(feminine)u.voice=feminine;
+     u.rate=.82;u.pitch=2;u.volume=1;
      window.speechSynthesis.speak(u);
    }catch(e){}
  }
@@ -83,7 +73,7 @@
    scoreEl.textContent=slaps;
    renderFace();
    message.textContent=lines[Math.min(17,Math.floor(slaps/5))];
-   playImpact();voice();
+   cry();
    const s=document.createElement('span');s.className='spark';
    s.textContent=['💥','✋','POW!','SMACK!'][Math.floor(Math.random()*4)];
    s.style.left=(28+Math.random()*44)+'%';s.style.top=(20+Math.random()*35)+'%';
